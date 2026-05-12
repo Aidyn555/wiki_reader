@@ -59,6 +59,7 @@ class ArticleViewModel extends ChangeNotifier {
 class ArticleWidget extends StatelessWidget {
   final Summary summary;
   const ArticleWidget({super.key, required this.summary});
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
@@ -69,16 +70,36 @@ class ArticleWidget extends StatelessWidget {
           Text(
             summary.titles.normalized,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displaySmall
+            style: Theme.of(context).textTheme.displaySmall,
           ),
           if (summary.description != null)
-          Text(
-            summary.description!,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.displaySmall
-          ),
-          Text(
-            summary.extract
+            Text(
+              summary.description!,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          Text(summary.extract),
+        ],
+      ),
+    );
+  }
+}
+
+class ArticlePage extends StatelessWidget {
+  final Summary summary;
+  final VoidCallback nextArticle;
+  ArticlePage ({super.key, required this.summary, required this.nextArticle});
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ArticleWidget(
+            summary: summary
+            ),
+          ElevatedButton(
+            onPressed: nextArticle,
+            child: Text ("Next Article")
           )
         ]
       ),
