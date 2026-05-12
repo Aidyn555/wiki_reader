@@ -106,3 +106,41 @@ class ArticlePage extends StatelessWidget {
     );
   }
 }
+
+class ArticleView extends StatefulWidget{
+  const ArticleView({super.key});
+  State<ArticleView> createState() => _ArticleViewState();
+}
+class  _ArticleViewState extends State<ArticleView>{
+  final viewModel = ArticleViewModel();
+  @override
+  void initState(){
+    super.initState();
+    viewModel.fetchArticle();
+  }
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: ,
+      // ),
+      body: Center(
+        child: ListenableBuilder(
+          listenable: viewModel,
+          builder: (_, context){
+            return switch((
+              viewModel.isLoading,
+              viewModel.summary,
+              viewModel.error
+            )){
+            (true,_,_) => CircularProgressIndicator(),
+            (_,_,Exception e) => Text('error $e'),
+            (_,Summary summary,_) => ArticlePage(
+              summary: viewModel.summary, 
+              nextArticle: viewModel.fetchArticle) => Text("Something went wrong")
+            };
+          }
+        )
+      ),
+    )
+  }
+}
