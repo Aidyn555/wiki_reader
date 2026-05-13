@@ -136,7 +136,7 @@ class  _ArticleViewState extends State<ArticleView>{
             (_,_,Exception e) => Text('error $e'),
             (_,Summary summary,_) => ArticlePage(
               summary: viewModel.summary, 
-              nextArticle: viewModel.fetchArticle) => Text("Something went wrong")
+              nextArticle: viewModel.fetchArticle) _ => Text("Something went wrong")
             };
           }
         )
