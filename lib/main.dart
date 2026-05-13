@@ -3,6 +3,7 @@ import 'summary.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:wiki_reader/data/repositories/random_article_repository.dart';
 
 void main() {
   runApp(const MainApp());
@@ -106,7 +107,7 @@ class ArticleView extends StatefulWidget {
 }
 
 class _ArticleViewState extends State<ArticleView> {
-  final viewModel = ArticleViewModel(ArticleModel());
+  final viewModel = ArticleViewModel(RandomArticleRepository());
   @override
   void initState() {
     super.initState();
