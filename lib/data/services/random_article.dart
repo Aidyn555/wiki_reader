@@ -8,11 +8,7 @@ class RandomArticleService {
       'ru.wikipedia.org',
       'api/rest_v1/page/random/summary',
     );
-    try {
-      final res = await _dio.get(uri.toString());
-      return res.data;
-    } on DioException catch (e) {
-      throw(e);
-    }
+    final res = await _dio.get(uri.toString());
+    return res.data;
   }
 }
