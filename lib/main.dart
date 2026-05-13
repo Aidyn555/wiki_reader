@@ -88,36 +88,33 @@ class ArticleWidget extends StatelessWidget {
 class ArticlePage extends StatelessWidget {
   final Summary summary;
   final VoidCallback nextArticle;
-  ArticlePage ({super.key, required this.summary, required this.nextArticle});
+  ArticlePage({super.key, required this.summary, required this.nextArticle});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ArticleWidget(
-            summary: summary
-            ),
-          ElevatedButton(
-            onPressed: nextArticle,
-            child: Text ("Next Article")
-          )
-        ]
+          ArticleWidget(summary: summary),
+          ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
+        ],
       ),
     );
   }
 }
 
-class ArticleView extends StatefulWidget{
+class ArticleView extends StatefulWidget {
   const ArticleView({super.key});
   State<ArticleView> createState() => _ArticleViewState();
 }
-class  _ArticleViewState extends State<ArticleView>{
-  final viewModel = ArticleViewModel();
+
+class _ArticleViewState extends State<ArticleView> {
+  final viewModel = ArticleViewModel(ArticleModel());
   @override
-  void initState(){
+  void initState() {
     super.initState();
     viewModel.fetchArticle();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(
@@ -126,21 +123,23 @@ class  _ArticleViewState extends State<ArticleView>{
       body: Center(
         child: ListenableBuilder(
           listenable: viewModel,
-          builder: (_, context){
-            return switch((
+          builder: (_, context) {
+            return switch ((
               viewModel.isLoading,
               viewModel.summary,
-              viewModel.error
-            )){
-            (true,_,_) => CircularProgressIndicator(),
-            (_,_,Exception e) => Text('error $e'),
-            (_,Summary summary,_) => ArticlePage(
-              summary: viewModel.summary, 
-              nextArticle: viewModel.fetchArticle) _ => Text("Something went wrong")
+              viewModel.error,
+            )) {
+              (true, _, _) => CircularProgressIndicator(),
+              (_, _, Exception e) => Text('error $e'),
+              (_, Summary summary, _) => ArticlePage(
+                summary: viewModel.summary!,
+                nextArticle: viewModel.fetchArticle,
+              ),
+              _ => Text("Something went wrong"),
             };
-          }
-        )
+          },
+        ),
       ),
-    )
+    );
   }
 }
