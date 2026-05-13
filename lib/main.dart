@@ -32,7 +32,7 @@ class ArticleModel {
 }
 
 class ArticleViewModel extends ChangeNotifier {
-  final ArticleModel model;
+  final RandomArticleRepository model;
   Summary? summary;
   Exception? error;
   bool isLoading = false;

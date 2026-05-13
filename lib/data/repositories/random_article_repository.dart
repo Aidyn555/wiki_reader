@@ -1,10 +1,10 @@
-import 'package:wiki_reader/data/services/random_article.dart';
+import 'package:wiki_reader/data/services/random_article_service.dart';
 import 'package:wiki_reader/summary.dart';
 
 class RandomArticleRepository {
   final RandomArticleService service = RandomArticleService();
-  Summary getRandomArticle()  {
+  Future <Summary> getRandomArticle() async {
     final data = service.fetchRandomArticle();
-    return Summary.fromJson(data);
+    return Summary.fromJson(await data);
   }
 }
