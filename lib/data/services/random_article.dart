@@ -10,9 +10,9 @@ class RandomArticleService {
     );
     try {
       final res = await _dio.get(uri.toString());
+      return res.data;
     } on DioException catch (e) {
-      print(e);
+      throw(e);
     }
-    return res.data;
   }
 }
