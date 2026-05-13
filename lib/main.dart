@@ -115,10 +115,16 @@ class _ArticleViewState extends State<ArticleView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-          viewModel.fetchArticle();
-        }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: SizedBox(
+        height: 40,
+        width: 100,
+        child: FloatingActionButton(
+          child: Text("Next Article"),
+          onPressed: () => setState(() {
+            viewModel.fetchArticle();
+          })
+        ),
       ),
       // appBar: AppBar(
       //   title: ,
