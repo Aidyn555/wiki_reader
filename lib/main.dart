@@ -13,16 +13,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
-    );
+    return MaterialApp(home: ArticleView());
   }
 }
 
 class ArticleModel {
   Future<Summary> getRandomArticle() async {
     final uri = Uri.https(
-      'en.wikipedia.com',
+      'ru.wikipedia.org',
       'api/rest_v1/page/random/summary',
     );
     final response = await get(uri);
@@ -90,16 +88,16 @@ class ArticlePage extends StatelessWidget {
   final VoidCallback nextArticle;
   ArticlePage({super.key, required this.summary, required this.nextArticle});
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ArticleWidget(summary: summary),
-          ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
-        ],
-      ),
-    );
-  }
+    Widget build(BuildContext context) {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            ArticleWidget(summary: summary),
+            //ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
+          ],
+        ),
+      );
+    }
 }
 
 class ArticleView extends StatefulWidget {
@@ -117,6 +115,11 @@ class _ArticleViewState extends State<ArticleView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() {
+          viewModel.fetchArticle();
+        }),
+      ),
       // appBar: AppBar(
       //   title: ,
       // ),
