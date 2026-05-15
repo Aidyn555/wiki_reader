@@ -8,8 +8,8 @@ class ArticleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<ArticleCubit>().updateArticle),
+      //floatingActionButton: FloatingActionButton(
+        //onPressed: () => context.read<ArticleCubit>().updateArticle),
       body: BlocBuilder<ArticleCubit, ArticleState>(
       builder: (context, state) {
         return switch (state) {
