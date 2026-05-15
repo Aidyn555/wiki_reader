@@ -97,7 +97,7 @@ class ArticlePage extends StatelessWidget {
       child: Column(
         children: [
           ArticleWidget(summary: summary),
-          //ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
+          ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
         ],
       ),
     );
@@ -106,23 +106,26 @@ class ArticlePage extends StatelessWidget {
 
 class ArticleView extends StatelessWidget {
   const ArticleView({super.key});
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ArticleCubit, ArticleState>(
-        builder: (context, state) {
-          return switch (state) {
-            ArticleLoading() => CircularProgressIndicator(),
-            ArticleError(error: var e) => Text('Error$e'),
-            ArticleLoaded(summary: var s) => ArticlePage(
-              summary: s,
-              nextArticle: context.read<ArticleCubit>().updateArticle,
-            ),
-            ArticleInitial() => Text('initial'),
-            _ => Text('Something is wrong'),
-          };
-        },
+    return BlocProvider(
+      create: (context) => ArticleCubit(),
+      child: Scaffold(
+        body: BlocBuilder<ArticleCubit, ArticleState>(
+          builder: (context, state) {
+            return switch (state) {
+              ArticleLoading() => CircularProgressIndicator(),
+              ArticleError(error: var e) => Text('Error $e'),
+              ArticleLoaded(summary: var s) => ArticlePage(
+                summary: s,
+                nextArticle: context.read<ArticleCubit>().updateArticle,
+              ),
+              ArticleInitial() => Text('initial'),
+              _ => Text('Something is wrong'),
+            };
+          },
+        ),
       ),
     );
   }
 }
-
