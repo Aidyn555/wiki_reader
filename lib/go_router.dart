@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:wiki_reader/ui/article_page/article_screen.dart';
 
-final router = GoRouter(initialLocation: "/random");
+final router = GoRouter(initialLocation: "/random"),
 routes: [
   StatefulShellRoute: indexStack(
     builder: ,
