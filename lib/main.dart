@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wiki_reader/ui/random_article/cubits/random_article.dart';
 import 'summary.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:wiki_reader/data/repositories/random_article_repository.dart';
+import 'package:wiki_reader/ui/random_article/cubits/random_article.dart';
 
 void main() {
   runApp(const MainApp());
@@ -89,67 +92,37 @@ class ArticlePage extends StatelessWidget {
   final VoidCallback nextArticle;
   ArticlePage({super.key, required this.summary, required this.nextArticle});
   @override
-    Widget build(BuildContext context) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            ArticleWidget(summary: summary),
-            //ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
-          ],
-        ),
-      );
-    }
-}
-
-class ArticleView extends StatefulWidget {
-  const ArticleView({super.key});
-  State<ArticleView> createState() => _ArticleViewState();
-}
-
-class _ArticleViewState extends State<ArticleView> {
-  final viewModel = ArticleViewModel(RandomArticleRepository());
-  @override
-  void initState() {
-    super.initState();
-    viewModel.fetchArticle();
-  }
-
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: SizedBox(
-        height: 40,
-        width: 100,
-        child: FloatingActionButton(
-          child: Text("Next Article"),
-          onPressed: () => setState(() {
-            viewModel.fetchArticle();
-          })
-        ),
-      ),
-      // appBar: AppBar(
-      //   title: ,
-      // ),
-      body: Center(
-        child: ListenableBuilder(
-          listenable: viewModel,
-          builder: (_, context) {
-            return switch ((
-              viewModel.isLoading,
-              viewModel.summary,
-              viewModel.error,
-            )) {
-              (true, _, _) => CircularProgressIndicator(),
-              (_, _, Exception e) => Text('error $e'),
-              (_, Summary summary, _) => ArticlePage(
-                summary: viewModel.summary!,
-                nextArticle: viewModel.fetchArticle,
-              ),
-              _ => Text("Something went wrong"),
-            };
-          },
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ArticleWidget(summary: summary),
+          //ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
+        ],
       ),
     );
   }
 }
+
+class ArticleView extends StatelessWidget {
+  const ArticleView({super.key});
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<ArticleCubit, ArticleState>(
+        builder: (context, state) {
+          return switch (state) {
+            ArticleLoading() => CircularProgressIndicator(),
+            ArticleError(error: var e) => Text('Error$e'),
+            ArticleLoaded(summary: var s) => ArticlePage(
+              summary: s,
+              nextArticle: context.read<ArticleCubit>().updateArticle,
+            ),
+            ArticleInitial() => Text('initial'),
+            _ => Text('Something is wrong'),
+          };
+        },
+      ),
+    );
+  }
+}
+
