@@ -12,7 +12,7 @@ class ArticlePage extends StatelessWidget {
       child: Column(
         children: [
           ArticleWidget(summary: summary),
-          ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
+          //ElevatedButton(onPressed: nextArticle, child: Text("Next Article")),
         ],
       ),
     );
