@@ -9,7 +9,7 @@ class ArticleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        //child: Text("Next Article"),
+        child: Text("Next Article"),
         onPressed: context.read<ArticleCubit>().updateArticle),
       body: BlocBuilder<ArticleCubit, ArticleState>(
       builder: (context, state) {
