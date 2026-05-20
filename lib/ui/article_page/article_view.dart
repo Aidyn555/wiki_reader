@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wiki_reader/summary_hive_box.dart';
 import 'package:wiki_reader/ui/random_article/cubits/random_article.dart';
 import 'package:wiki_reader/ui/article_page/article_page.dart';
 
@@ -9,22 +10,27 @@ class ArticleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Row(
-        mainAxisAlignment: .center,
+        //mainAxisAlignment: .center,
         children: <Widget>[ 
           FloatingActionButton(
-            child: Text("Next Article"),
+            //child: Text("Next Article"),
+            child: const Icon(Icons.edit_outlined),
             onPressed: context.read<ArticleCubit>().updateArticle)]),
       body: BlocBuilder<ArticleCubit, ArticleState>(
-      builder: (context, state) {
-        return switch (state) {
-          ArticleLoading() => CircularProgressIndicator(),
-          ArticleError(error: var e) => Text('Error $e'),
-          ArticleLoaded(summary: var s) => ArticlePage(
-            summary: s,
-            nextArticle: context.read<ArticleCubit>().updateArticle,
-          ),
-          ArticleInitial() => Text('initial'),
-          _ => Text('Something is wrong'),
+        builder: (context, state) {
+          return switch (state) {
+            ArticleLoading() => CircularProgressIndicator(),
+            ArticleError(error: var e) => Text('Error $e'),
+            ArticleLoaded(summary: var s) => ArticlePage(
+              summary: s,
+              nextArticle: context.read<ArticleCubit>().updateArticle,
+              saveToDB: () {
+                context.read<ArticleCubit>().state;
+                SummaryHiveBox.create(s.titles.normalized, s);
+              },
+            ),
+            ArticleInitial() => Text('initial'),
+            _ => Text('Something is wrong'),
           };
         },
       ),
