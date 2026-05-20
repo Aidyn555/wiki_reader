@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:wiki_reader/summary_hive_box.dart';
 import 'package:wiki_reader/ui/random_article/cubits/random_article.dart';
 import 'package:wiki_reader/ui/article_page/article_page.dart';
@@ -11,11 +12,14 @@ class ArticleView extends StatelessWidget {
     return Scaffold(
       floatingActionButton: Row(
         //mainAxisAlignment: .center,
-        children: <Widget>[ 
+        children: <Widget>[
           FloatingActionButton(
             //child: Text("Next Article"),
             child: const Icon(Icons.edit_outlined),
-            onPressed: context.read<ArticleCubit>().updateArticle)]),
+            onPressed: context.read<ArticleCubit>().updateArticle,
+          ),
+        ],
+      ),
       body: BlocBuilder<ArticleCubit, ArticleState>(
         builder: (context, state) {
           return switch (state) {
@@ -25,8 +29,13 @@ class ArticleView extends StatelessWidget {
               summary: s,
               nextArticle: context.read<ArticleCubit>().updateArticle,
               saveToDB: () {
-                context.read<ArticleCubit>().state;
-                SummaryHiveBox.create(s.titles.normalized, s);
+                Article a = Article(
+                  id: s.pageId,
+                  titles: s.titles.normalized,
+                  description: s.description,
+                  imageSource: s.originalImage?.source,
+                );
+                Hive.box<Article>(summaryHiveBox).put(a.id, a);
               },
             ),
             ArticleInitial() => Text('initial'),
