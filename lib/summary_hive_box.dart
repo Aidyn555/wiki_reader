@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-part 'summary_hive_box.g.dart';
 
 const summaryHiveBox = "summaryHiveBox";
 class SummaryHiveBox {
