@@ -11,11 +11,11 @@ class ArticleView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Row(
-        //mainAxisAlignment: .center,
+        mainAxisAlignment: .end,
         children: <Widget>[
           FloatingActionButton(
             //child: Text("Next Article"),
-            child: const Icon(Icons.edit_outlined),
+            child: const Icon(Icons.replay),
             onPressed: context.read<ArticleCubit>().updateArticle,
           ),
         ],

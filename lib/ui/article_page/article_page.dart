@@ -13,7 +13,9 @@ class ArticlePage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ArticleWidget(summary: summary),
+          ArticleWidget(titles: summary.titles.normalized,
+          imageSource: summary.originalImage?.source,
+          description: summary.description,),
           ElevatedButton(onPressed: saveToDB, child: Text("Favorite")),
         ],
       ),
