@@ -13,7 +13,7 @@ class SummaryHiveBox {
     return summaryBox.get(key);
   }
 
-  static List getAll() {
+  static List<Article?> getAll() {
     return summaryBox.keys.map((key) => summaryBox.get(key)).toList();
   }
 }
@@ -28,11 +28,14 @@ class Article {
   final String? description;
   @HiveField(3)
   final int id;
+  @HiveField(4)
+  final String extract;
   const Article({
     required this.id,
     required this.titles,
-    required this.description,
-    required this.imageSource,
+    this.description,
+    this.imageSource,
+    required this.extract,
   });
 }
 
@@ -46,6 +49,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
       imageSource: reader.read() as String,
       description: reader.read() as String,
       id: reader.read() as int,
+      extract: reader.read() as String,
     );
   }
 
@@ -55,5 +59,6 @@ class ArticleAdapter extends TypeAdapter<Article> {
     writer.write(obj.imageSource);
     writer.write(obj.description);
     writer.write(obj.id);
+    writer.write(obj.extract);
   }
 }

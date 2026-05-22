@@ -6,7 +6,7 @@ class RootScreen extends StatelessWidget {
   const RootScreen({super.key, required this.navigationShell});
   List<BottomNavigationBarItem> get _bottomItems => [
     const BottomNavigationBarItem(icon: Icon(Icons.casino), label: "Random"),
-    const BottomNavigationBarItem(icon: Icon(Icons.star), label: "Favorite"),
+    const BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorite"),
   ];
   @override
   Widget build(BuildContext context) {

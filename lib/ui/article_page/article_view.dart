@@ -14,12 +14,30 @@ class ArticleView extends StatelessWidget {
         mainAxisAlignment: .end,
         children: <Widget>[
           FloatingActionButton(
-            //child: Text("Next Article"),
             child: const Icon(Icons.replay),
             onPressed: context.read<ArticleCubit>().updateArticle,
           ),
+          const SizedBox(width: 220),
+          FloatingActionButton(
+            child: const Icon(Icons.favorite),
+            onPressed: () {
+              final state = context.read<ArticleCubit>().state;
+              if (state is ArticleLoaded){
+              final s = state.summary;
+              Article a = Article(
+                id: s.pageId,
+                titles: s.titles.normalized,
+                description: s.description,
+                imageSource: s.originalImage?.source,
+                extract: s.extract,
+              );
+              Hive.box<Article>(summaryHiveBox).add(a);
+              };
+            },
+          ),
         ],
       ),
+
       body: BlocBuilder<ArticleCubit, ArticleState>(
         builder: (context, state) {
           return switch (state) {
@@ -34,8 +52,9 @@ class ArticleView extends StatelessWidget {
                   titles: s.titles.normalized,
                   description: s.description,
                   imageSource: s.originalImage?.source,
+                  extract: s.extract,
                 );
-                Hive.box<Article>(summaryHiveBox).put(a.id, a);
+                Hive.box<Article>(summaryHiveBox).add(a);
               },
             ),
             ArticleInitial() => Text('initial'),

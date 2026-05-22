@@ -4,7 +4,14 @@ class ArticleWidget extends StatelessWidget {
   final String titles;
   final String? imageSource;
   final String? description;
-  const ArticleWidget({super.key, required this.titles, this.imageSource, this.description});
+  final String extract;
+  const ArticleWidget({
+    super.key,
+    required this.titles,
+    this.imageSource,
+    this.description,
+    required this.extract
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,6 +31,7 @@ class ArticleWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.displaySmall,
             ),
+          Text(extract),
         ],
       ),
     );
