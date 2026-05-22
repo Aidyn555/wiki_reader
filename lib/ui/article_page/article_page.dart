@@ -17,8 +17,7 @@ class ArticlePage extends StatelessWidget {
             titles: summary.titles.normalized,
             imageSource: summary.originalImage?.source,
             description: summary.description,
-            extract: summary.extract),
-            ElevatedButton(onPressed: saveToDB, child: Text("Favorite")
+            extract: summary.extract
           ),
         ],
       ),

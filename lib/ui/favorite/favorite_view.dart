@@ -3,28 +3,28 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wiki_reader/article_hive_box.dart';
 import 'package:wiki_reader/ui/article_page/article_widget.dart';
 
-class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key, required this.summaries});
+class FavoriteView extends StatelessWidget {
+  const FavoriteView({super.key, required this.summaries, required this.box});
   final List<Article?> summaries;
+  final Box box;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ValueListenableBuilder(
-        valueListenable: Hive.box(articleHiveBox).listenable(),
+        valueListenable: box.listenable(),
         builder: (context, state, _) {
-          final articles = Hive.box<Article>(articleHiveBox).values;
+          final articles = box.values;
           return SingleChildScrollView(
             child: Column(
               children: [
-                for (var a in articles) 
+                for (var a in articles)
                   ArticleWidget(
                     titles: a.titles,
                     imageSource: a.imageSource,
                     description: a.description,
-                    extract: a.extract
+                    extract: a.extract,
                   ),
-                ],
-              
+              ],
             ),
           );
         },

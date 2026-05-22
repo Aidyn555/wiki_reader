@@ -4,17 +4,17 @@ import 'package:hive/hive.dart';
 const articleHiveBox = "articleHiveBox";
 
 class ArticleHiveBox {
-  static final summaryBox = Hive.box<Article>(articleHiveBox);
+  static final articleBox = Hive.box<Article>(articleHiveBox);
   static void create(key, summary) {
-    summaryBox.put(key, summary);
+    articleBox.put(key, summary);
   }
 
   static Article? get(key) {
-    return summaryBox.get(key);
+    return articleBox.get(key);
   }
 
   static List<Article?> getAll() {
-    return summaryBox.keys.map((key) => summaryBox.get(key)).toList();
+    return articleBox.keys.map((key) => articleBox.get(key)).toList();
   }
 }
 
