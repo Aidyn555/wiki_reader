@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wiki_reader/summary.dart';
 
 class ArticleWidget extends StatelessWidget {
-  //final Summary summary;
   final String titles;
   final String? imageSource;
   final String? description;
