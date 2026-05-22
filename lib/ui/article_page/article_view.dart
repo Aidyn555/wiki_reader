@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:wiki_reader/summary_hive_box.dart';
+import 'package:wiki_reader/article_hive_box.dart';
 import 'package:wiki_reader/ui/random_article/cubits/random_article.dart';
 import 'package:wiki_reader/ui/article_page/article_page.dart';
 
@@ -13,11 +13,6 @@ class ArticleView extends StatelessWidget {
       floatingActionButton: Row(
         mainAxisAlignment: .end,
         children: <Widget>[
-          FloatingActionButton(
-            child: const Icon(Icons.replay),
-            onPressed: context.read<ArticleCubit>().updateArticle,
-          ),
-          const SizedBox(width: 220),
           FloatingActionButton(
             child: const Icon(Icons.favorite),
             onPressed: () {
@@ -31,9 +26,14 @@ class ArticleView extends StatelessWidget {
                 imageSource: s.originalImage?.source,
                 extract: s.extract,
               );
-              Hive.box<Article>(summaryHiveBox).add(a);
+              Hive.box<Article>(articleHiveBox).add(a);
               };
             },
+          ),
+          const SizedBox(width: 220),
+          FloatingActionButton(
+            child: const Icon(Icons.replay),
+            onPressed: context.read<ArticleCubit>().updateArticle,
           ),
         ],
       ),
@@ -54,7 +54,7 @@ class ArticleView extends StatelessWidget {
                   imageSource: s.originalImage?.source,
                   extract: s.extract,
                 );
-                Hive.box<Article>(summaryHiveBox).add(a);
+                Hive.box<Article>(articleHiveBox).add(a);
               },
             ),
             ArticleInitial() => Text('initial'),

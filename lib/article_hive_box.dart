@@ -1,10 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
-const summaryHiveBox = "summaryHiveBox";
+const articleHiveBox = "articleHiveBox";
 
-class SummaryHiveBox {
-  static final summaryBox = Hive.box<Article>(summaryHiveBox);
+class ArticleHiveBox {
+  static final summaryBox = Hive.box<Article>(articleHiveBox);
   static void create(key, summary) {
     summaryBox.put(key, summary);
   }

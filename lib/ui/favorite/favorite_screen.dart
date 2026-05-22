@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wiki_reader/summary_hive_box.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wiki_reader/article_hive_box.dart';
 import 'package:wiki_reader/ui/article_page/article_widget.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -7,19 +8,26 @@ class FavoriteScreen extends StatelessWidget {
   final List<Article?> summaries;
   @override
   Widget build(BuildContext context) {
-    return Scaffold()
-    
-    }
-
-
-
-
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (var s in summaries) ArticleWidget(titles: s!.titles, imageSource: s.imageSource, description: s.description, extract: s.extract)
-        ]
+    return Scaffold(
+      body: ValueListenableBuilder(
+        valueListenable: Hive.box(articleHiveBox).listenable(),
+        builder: (context, state, _) {
+          final articles = Hive.box<Article>(articleHiveBox).values;
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                for (var a in articles) 
+                  ArticleWidget(
+                    titles: a.titles,
+                    imageSource: a.imageSource,
+                    description: a.description,
+                    extract: a.extract
+                  ),
+                ],
+              
+            ),
+          );
+        },
       ),
     );
   }

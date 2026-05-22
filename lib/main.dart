@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:wiki_reader/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:wiki_reader/summary_hive_box.dart';
+import 'package:wiki_reader/article_hive_box.dart';
 
 Future main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ArticleAdapter());
-  await Hive.openBox<Article>(summaryHiveBox);
+  await Hive.openBox<Article>(articleHiveBox);
   runApp(const MainApp());
 }
 

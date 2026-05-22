@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wiki_reader/root_screen.dart';
 import 'package:wiki_reader/ui/article_page/article_screen.dart';
 import 'package:wiki_reader/ui/favorite/favorite_screen.dart';
-import 'package:wiki_reader/summary_hive_box.dart';
+import 'package:wiki_reader/article_hive_box.dart';
 
 final router = GoRouter(initialLocation: "/random",
   routes: [
@@ -21,7 +21,7 @@ final router = GoRouter(initialLocation: "/random",
           routes:[
             GoRoute(
               path:"/fav",
-              builder: (context, state) => FavoriteScreen(summaries: SummaryHiveBox.getAll())
+              builder: (context, state) => FavoriteScreen(summaries: ArticleHiveBox.getAll())
             ),
           ],
         ),
