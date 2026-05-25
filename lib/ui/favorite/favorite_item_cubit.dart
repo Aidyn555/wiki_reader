@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiki_reader/article_hive_box.dart';
 
@@ -11,10 +10,10 @@ class FavItemChosen extends FavItemState {
 
 class FavItemInitial extends FavItemState {}
 
-class FavItemCubit extends Cubit<FavItemCubit> {
+class FavItemCubit extends Cubit<FavItemState> {
   FavItemCubit() : super(FavItemInitial());
   void setFavItem(Article a) {
-    final state = FavItemLoaded(article: a);
+    final state = FavItemChosen(article: a);
     emit(state);
   }
 }
