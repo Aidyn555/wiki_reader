@@ -5,8 +5,9 @@ import 'package:wiki_reader/root_screen.dart';
 import 'package:wiki_reader/ui/article_page/article_screen.dart';
 import 'package:wiki_reader/ui/favorite/favorite_item_cubit.dart';
 import 'package:wiki_reader/ui/favorite/favorite_screen.dart';
-import 'package:wiki_reader/ui/favorite/favorite_view.dart';
-import 'package:wiki_reader/article_hive_box.dart';
+
+import 'package:go_provider/go_provider.dart';
+
 
 final router = GoRouter(initialLocation: "/random",
   routes: [
@@ -23,23 +24,20 @@ final router = GoRouter(initialLocation: "/random",
         ),
         StatefulShellBranch(
           routes:[
-            GoRoute(
+            GoProviderRoute(
               path:"/fav",
-              builder: (_,_,child) => BlocProvider(
-                context: (___) => FavItemCubit(),
-                child: child
-              ),
+              builder: (_, _) => FavScreen(),
+               providers:(_,_) =>[
+                BlocProvider(create:(_) => FavItemCubit(),
+                )
+              ],  
               routes: [
-                GoRoute(
-                  path: " ",
-                  builder: (_, _) => FavScreen()
-                ),
                 GoRoute(
                   path: "item",
                   builder: (_, _) => Text("FavItem")
                 )
-              ]
-            ),
+              ],
+            )
           ],
         ),
       ],
