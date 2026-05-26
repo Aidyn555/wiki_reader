@@ -26,7 +26,7 @@ final router = GoRouter(initialLocation: "/random",
             GoRoute(
               path:"/fav",
               builder: (_,_,child) => BlocProvider(
-                context: (_) => FavItemCubit(),
+                context: (___) => FavItemCubit(),
                 child: child
               ),
               routes: [
