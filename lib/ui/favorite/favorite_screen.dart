@@ -8,5 +8,6 @@ class FavScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FavoriteView(summaries: ArticleHiveBox.getAll(), box: ArticleHiveBox.articleBox);
+    
   }
 }

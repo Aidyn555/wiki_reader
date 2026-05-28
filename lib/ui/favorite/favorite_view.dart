@@ -11,6 +11,7 @@ class FavoriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: (context, state, _) {
