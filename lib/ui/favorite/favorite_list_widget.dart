@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wiki_reader/ui/favorite/favorite_item_cubit.dart';
 import 'package:wiki_reader/ui/favorite/favorite_list_item_widget.dart';
 import 'package:wiki_reader/article_hive_box.dart';
@@ -18,7 +19,9 @@ class FavoriteListWidget extends StatelessWidget {
                 title: a.titles,
                 onTap: () {
                   final c = context.read<FavItemCubit>();
+                  context.go("/fav/item");
                   c.setFavItem(a);
+                 
                 },
               ),
           ],
