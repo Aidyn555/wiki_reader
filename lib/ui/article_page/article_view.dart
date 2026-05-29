@@ -14,7 +14,7 @@ class ArticleView extends StatelessWidget {
         mainAxisAlignment: .end,
         children: <Widget>[
           FloatingActionButton(
-            child: const Icon(Icons.favorite),
+            child: const Icon(Icons.savings_rounded),
             onPressed: () {
               final state = context.read<ArticleCubit>().state;
               if (state is ArticleLoaded){
@@ -32,7 +32,7 @@ class ArticleView extends StatelessWidget {
           ),
           const SizedBox(width: 220),
           FloatingActionButton(
-            child: const Icon(Icons.replay),
+            child: const Icon(Icons.next_plan_sharp),
             onPressed: context.read<ArticleCubit>().updateArticle,
           ),
         ],

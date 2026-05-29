@@ -14,14 +14,16 @@ class FavoriteListWidget extends StatelessWidget {
       child: Expanded(
         child: Column(
           children: [
-            for (var a in box.values)
+            for (var k in box.keys)
               FavoriteListItemWidget(
-                title: a.titles,
+                title: box.get(k)!.titles,
                 onTap: () {
                   final c = context.read<FavItemCubit>();
                   context.go("/fav/item");
-                  c.setFavItem(a);
-                 
+                  c.setFavItem(box.get(k)!);
+                },
+                delete: () async {
+                  await box.delete(k);
                 },
               ),
           ],
