@@ -10,12 +10,13 @@ class FavItemScreen extends StatelessWidget {
     return BlocBuilder<FavItemCubit, FavItemState>(
       builder:(context, state) {
         return switch (state){
-          FavItemChosen(article: var a) => ArticleWidget(
+          FavItemChosen(article: var a) => SingleChildScrollView(child: ArticleWidget(
             titles: a.titles,
             description: a.description,
             imageSource: a.imageSource,
             extract: a.extract,
             ),
+          ),
           _ => Text("Something went wrong")
         };
       }

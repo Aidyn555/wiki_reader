@@ -11,7 +11,25 @@ class FavoriteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFB87CFD),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        toolbarHeight: 44 + MediaQuery.of(context).padding.top,
+        centerTitle: true,
+        title: const Padding(padding: EdgeInsets.only(top: 12.0),
+        child: Text("Favorites",
+        style: TextStyle(fontSize: 17,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.3,),),
+            
+        ),
+        shape: const Border(bottom: BorderSide(
+          color: Colors.white12,
+          width: 0.5
+        )),
+      ),
       body: ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: (context, state, _) {
